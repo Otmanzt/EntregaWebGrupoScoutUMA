@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="templates/mainLayout.xhtml">
+        <ui:define name="title">
+            Mis Datos
+        </ui:define>
+        <ui:define name="content">
+            <div class="row">
+                <div class="col-md-2">
+                    <ui:include src="templates/lateralMenu.xhtml"/> 
+                </div>
+                <div class="col-md-10">
+                    <h1>Mis Datos</h1>
+                    <h:form id="formMisDatos">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <h:outputLabel>Nombre</h:outputLabel>
+                                <h:inputText value="#{controlAutorizacion.socio.nombre}" class="form-control" id="nombreUsuario"  a:placeholder="Tu nombre"></h:inputText>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <h:outputLabel>Apellidos</h:outputLabel>
+                                <h:inputText value="#{controlAutorizacion.socio.apellidos}" class="form-control" id="apellidosUsuario" a:placeholder="Tus apellidos"></h:inputText>
+                            </div>
+                            <div class="form-group col-md-4">
+                                <h:outputLabel>Dirección</h:outputLabel>
+                                <h:inputText value="#{controlAutorizacion.socio.direccion}" class="form-control" id="direccionUsuario" a:placeholder="Tu dirección"></h:inputText>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-3">
+                                <h:outputLabel>Teléfono</h:outputLabel>
+                                <h:inputText value="#{controlAutorizacion.socio.telefono}" class="form-control" id="telefonoUsuario" a:placeholder="Teléfono Casa"></h:inputText>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <h:outputLabel>Teléfono móvil</h:outputLabel>
+                                <h:inputText value="#{controlAutorizacion.socio.telefono_movil}" class="form-control" id="movilUsuario"  a:placeholder="Teléfono Móvil"></h:inputText>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <h:outputLabel>Sexo</h:outputLabel>
+                                <h:selectOneMenu id="sexoUsuario" class="form-control" value="#{controlAutorizacion.socio.sexo}">
+                                    <f:selectItem itemValue="Hombre" itemLabel="Hombre"></f:selectItem>
+                                    <f:selectItem itemValue="Mujer" itemLabel="Mujer"></f:selectItem>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <h:outputLabel>Fecha de Nacimiento</h:outputLabel>
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <h:inputText value="#{controlAutorizacion.socio.fecha_nacimiento.date}" class="form-control" id="dia" ></h:inputText>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h:inputText value="#{controlAutorizacion.socio.fecha_nacimiento.month}" class="form-control" id="mes" ></h:inputText>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h:inputText value="#{controlAutorizacion.socio.fecha_nacimiento.year}" class="form-control" id="year" ></h:inputText>
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <h:commandLink class="btn btn-success" id="guardar_MisDatos" style="margin-right: 15px;" action="#{controlAutorizacion.actualizarDatos()}"><i class="fas fa-edit"></i> Guardar</h:commandLink>
+
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+
+</html>

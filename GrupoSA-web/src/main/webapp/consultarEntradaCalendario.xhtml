@@ -1,0 +1,46 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Consultar Entrada de Calendario
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Consultar Entrada de Calendario
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form id="formCrearSocio">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="outputIdEntrada">Identificador Entrada</h:outputLabel>
+                        <h:outputText value="#{CalendarioBB.entCal.id_entrada_calendario}" class="form-control" id="outputIdEntrada"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="outputIdSocio">Identificador Socio</h:outputLabel>
+                        <h:outputText value="#{CalendarioBB.entCal.socio.id_Socio}" class="form-control" id="outputIdSocio"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="outputFecha">Fecha</h:outputLabel>
+                        <h:outputText value="#{CalendarioBB.entCal.fecha}" class="form-control" id="outputFecha"><f:convertDateTime pattern="dd-MM-yyyy"/></h:outputText>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="outputCategoria">Categoría</h:outputLabel>
+                        <h:outputText value="#{CalendarioBB.entCal.categoria}" class="form-control" id="outputCategoria"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <h:outputLabel for="inputDescripcion">Descripción</h:outputLabel>
+                        <h:outputText value="#{CalendarioBB.entCal.descripcion}" class="form-control" id="inputDescripcion"/>
+                </div>
+                <h:button outcome="listarCalendario.xhtml" class="btn btn-primary" value="Volver"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

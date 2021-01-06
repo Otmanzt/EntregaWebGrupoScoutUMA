@@ -1,0 +1,19 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition>
+
+        <div class="list-group-flush lista_lateral">
+            <a id="lateraldatosUsuario" href="datosUsuario.xhtml" class="list-group-item list-group-item-action lateraldatosUsuario">Mis Datos</a>
+            <a id="lateralmisDocumentos" href="misDocumentos.xhtml" class="list-group-item list-group-item-action lateralmisDocumentos">Mis Documentos</a>
+            <h:form a:action="misNotificaciones.xhtml" id="formNotificacion">
+            <h:commandLink id="lateralmisNotificaciones" action="#{notificacionesBB.irNotif(controlAutorizacion.socio.id_Usuario)}" class="list-group-item list-group-item-action lateralmisNotificaciones">Notificaciones</h:commandLink>
+            </h:form>
+        </div>
+        
+    </ui:composition>
+</html>
+

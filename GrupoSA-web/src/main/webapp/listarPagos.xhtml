@@ -1,0 +1,134 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Lista de Pagos
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            <c:if test="#{pagosBB.getModo()}">
+                Lista de pagos cuota
+            </c:if>
+            
+            <c:if test="#{!pagosBB.getModo()}">
+                Lista de pagos evento
+            </c:if>
+        </ui:define>
+        <ui:define name="contenido">
+            
+            
+            <c:if test="#{pagosBB.getModo()}">
+                <h:form style="min-height: 55px">
+                    <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                        <h:commandLink action="#{pagosBB.newPagoCuota()}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Crear</h:commandLink>
+                    </c:if>
+                    <h:commandLink action="#{pagosBB.cambiarModo()}" class="btn btn-outline-success float-left"><i class="fas fa-exchange-alt"></i> Cambiar tipo de Pago</h:commandLink>    
+                </h:form>
+                
+                <h:dataTable id="pagoLista" value="#{pagosBB.getPagosCuotas()}" var="pago" class="table">                
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Identificador"/>
+                        </f:facet>
+                        <h:outputText value="#{pago.id_Pago}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Socio: Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{pago.socio.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Socio: Apellidos"/>
+                        </f:facet>
+                        <h:outputText value="#{pago.socio.apellidos}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Cuota "/>
+                        </f:facet>
+                        <h:outputText value="#{pago.cuota.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Acciones"/>
+                        </f:facet>
+                        <h:form>
+                            <c:if test="#{controlAutorizacion.socio.getPerfil() == 'SCOUT' ||controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                                <h:commandLink action="#{pagosBB.readPagoCuota(pago)}"><i class="fas fa-eye"></i></h:commandLink>
+                                &nbsp;
+                            </c:if>
+                            <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                                <h:commandLink action="#{pagosBB.modPagoCuota(pago)}"><i class="fas fa-edit"></i></h:commandLink>
+                                &nbsp;
+                                <h:commandLink action="#{pagosBB.deletePagoCuota(pago)}"><i class="far fa-trash-alt"></i></h:commandLink>
+                                &nbsp;
+                            </c:if>
+                            
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </c:if>
+            <c:if test="#{!pagosBB.getModo()}">
+                <h:form style="min-height: 55px">
+                    <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                        <h:commandLink action="#{pagosBB.newPagoEvento()}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Crear</h:commandLink>
+                    </c:if>
+                    <h:commandLink action="#{pagosBB.cambiarModo()}" class="btn btn-outline-success float-left"><i class="fas fa-exchange-alt"></i> Cambiar tipo de Pago</h:commandLink>    
+                </h:form>
+                <h:dataTable id="pagoLista" value="#{pagosBB.getPagosEventos()}" var="pago" class="table">                
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Identificador"/>
+                        </f:facet>
+                        <h:outputText value="#{pago.id_Pago}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Socio: Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{pago.socio.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Socio: Apellidos"/>
+                        </f:facet>
+                        <h:outputText value="#{pago.socio.apellidos}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Evento"/>
+                        </f:facet>
+                        <h:outputText value="#{pago.evento.nombre}"/>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Acciones"/>
+                        </f:facet>
+                        <h:form>
+                            <c:if test="#{controlAutorizacion.socio.getPerfil() == 'SCOUT' ||controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                                <h:commandLink action="#{pagosBB.readPagoEvento(pago)}"><i class="fas fa-eye"></i></h:commandLink>
+                                &nbsp;
+                            </c:if>
+                            <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                                <h:commandLink action="#{pagosBB.modPagoEvento(pago)}"><i class="fas fa-edit"></i></h:commandLink>
+                                &nbsp;
+                                <h:commandLink action="#{pagosBB.deletePagoEvento(pago)}"><i class="far fa-trash-alt"></i></h:commandLink>
+                                &nbsp;
+                            </c:if>
+                            
+                        </h:form>
+                    </h:column>
+                </h:dataTable>
+            </c:if>
+        </ui:define>
+    </ui:composition>
+</html>

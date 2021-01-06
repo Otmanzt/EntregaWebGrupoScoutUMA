@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Lista de Secciones
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Lista de secciones
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form style="min-height: 55px">
+
+                    
+            </h:form>
+
+            <h:dataTable id="eventoLista" value="#{seccionesAdminBB.getSecciones()}" var="sec" class="table">                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Identificador"/>
+                    </f:facet>
+                    <h:outputText value="#{sec.id_seccion}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre"/>
+                    </f:facet>
+                    <h:outputText value="#{sec.nombre}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Acciones"/>
+                    </f:facet>
+                    <h:form>
+                        <c:if test="#{controlAutorizacion.socio.getPerfil() == 'SCOUT' ||controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                            <h:commandLink action="#{seccionesAdminBB.readSeccion(sec)}"><i class="fas fa-eye"></i></h:commandLink>
+                            &nbsp;
+                        </c:if>
+                        <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                            <h:commandLink action="#{seccionesAdminBB.modSeccion(sec)}"><i class="fas fa-edit"></i></h:commandLink>
+                            &nbsp;
+                        </c:if>
+                    </h:form>
+                </h:column>
+            </h:dataTable>
+        </ui:define>
+    </ui:composition>
+</html>

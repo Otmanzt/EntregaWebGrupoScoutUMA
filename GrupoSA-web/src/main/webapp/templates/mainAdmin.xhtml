@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="bootstrap.css"  />
+        <h:outputStylesheet library="css" name="scout.css"  />
+        <link rel="shortcut icon" href="resources/icons/icon-flordelis-transparente.png"></link>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous"></link>
+        <title><ui:insert name="title" />Administración</title>
+    </h:head>
+    <h:body>
+        <div class="container-fluid">
+            <div class="row d-flex d-md-block flex-nowrap wrapper">
+                <div class="col-md-2 float-left col-1 pl-0 pr-0 collapse width show" id="sidebar">
+
+                    <div class="list-group border-0  text-center text-md-left">
+                        <img src="resources/images/flor.png" style="width: 100px;margin: 10px auto"></img>
+                        <h4 class="titulo3">Grupo Scout 39</h4>
+                        <h4 class="titulo3">Santo Ángel</h4>
+                        <h5 class="titulo4">Administración</h5>
+                        <c:if test="#{controlAutorizacion.socio.perfil == 'ROOT'}">
+                            <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Socios </span></a>
+                            <div class="collapse" id="menu1" data-parent="#sidebar">
+                                <a href="sociosLista.xhtml" class="list-group-item" data-parent="#menu1">Lista de Socios</a>
+                                <h:form>
+                                    <h:commandLink action="#{sociosBB.newSocio()}" class="list-group-item" a:data-parent="#menu2">Crear Socio</h:commandLink>
+                                </h:form>
+                            </div>
+                            <a href="#menu2" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Eventos </span></a>
+                            <div class="collapse" id="menu2" data-parent="#sidebar">
+                                <a href="listarEventos.xhtml" class="list-group-item" data-parent="#menu2">Lista de Eventos</a>
+                                <h:form>
+                                    <h:commandLink action="#{eventosBB.newEvento()}" class="list-group-item" a:data-parent="#menu2">Crear Evento</h:commandLink>
+                                </h:form>    
+                            </div>
+                            <a href="#menu3" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Cuotas </span></a> 
+                            <div class="collapse" id="menu3" data-parent="#sidebar">
+                                <a href="cuotasLista.xhtml" class="list-group-item" data-parent="#menu3">Lista de Cuotas</a>
+                                <a href="cuotasCrear.xhtml" class="list-group-item" data-parent="#menu3">Crear Cuota</a>
+                            </div>
+                            <a href="#menu4" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Ingresos y gastos   </span></a>
+                            <div class="collapse" id="menu4" data-parent="#sidebar">
+                                <a href="listarTransacciones.xhtml" class="list-group-item" data-parent="#menu4">Lista de Ingresos y Gastos</a>
+                                <h:form>
+                                    <h:commandLink action="#{transaccionesBB.newTransaccion()}" class="list-group-item" a:data-parent="#menu4">Crear Ingreso o Gasto</h:commandLink>
+                                </h:form>    
+                            </div>
+                            <a href="#menu5" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Documentos   </span></a> 
+                            <div class="collapse" id="menu5" data-parent="#sidebar">
+                                <a href="documentosLista.xhtml" class="list-group-item" data-parent="#menu5">Documentos Educandos</a>
+                                <!--<a href="#" class="list-group-item" data-parent="#menu5">Plantillas de Documentos</a>
+                                <a href="#" class="list-group-item" data-parent="#menu5">Campos de Documentos</a>-->
+                            </div>
+                            <a href="#menu6" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Entradas Calendario </span></a>
+                            <div class="collapse" id="menu6" data-parent="#sidebar">
+                                <h:form>
+                                    <h:commandLink action="#{CalendarioBB.limpiarBusqueda()}" class="list-group-item" a:data-parent="#menu6">Lista de Entradas de Calendario</h:commandLink>
+                                </h:form>
+                            </div>
+
+                            <a href="#menu7" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Pagos </span></a>
+                            <div class="collapse" id="menu7" data-parent="#sidebar">
+                                <a href="listarPagos.xhtml" class="list-group-item" data-parent="#menu7">Lista de Pagos</a>
+                                <h:form>
+                                    <h:commandLink action="#{pagosBB.newPagoCuota()}" class="list-group-item" a:data-parent="#menu7">Crear Pago Cuota</h:commandLink>
+                                </h:form>
+                                <h:form>
+                                    <h:commandLink action="#{pagosBB.newPagoEvento()}" class="list-group-item" a:data-parent="#menu7">Crear Pago Evento</h:commandLink>
+                                </h:form>
+                            </div>
+
+                            <a href="#menu9" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Secciones </span></a>
+                            
+                            <div class="collapse" id="menu9" data-parent="#sidebar">
+                                <a href="listarSecciones.xhtml" class="list-group-item" data-parent="#menu9">Lista de Secciones</a>   
+                            </div>
+                            
+                        </c:if>
+                        <c:if test="#{controlAutorizacion.socio.perfil == 'SCOUT'}">
+                            <a href="#menu1" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Socios </span></a>     
+                            <div class="collapse" id="menu1" data-parent="#sidebar">
+                                <a href="sociosLista.xhtml" class="list-group-item" data-parent="#menu1">Lista de Socios</a>
+                            </div>
+                            <a href="#menu2" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Eventos </span></a>
+                            <div class="collapse" id="menu2" data-parent="#sidebar">
+                                <a href="listarEventos.xhtml" class="list-group-item" data-parent="#menu2">Lista de Evento</a>
+
+                            </div>
+                            <a href="#menu5" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Documentos   </span></a> 
+                            <div class="collapse" id="menu5" data-parent="#sidebar">
+                                <a href="documentosLista.xhtml" class="list-group-item" data-parent="#menu5">Documentos Educandos</a>
+                                <!--<a href="#" class="list-group-item" data-parent="#menu5">Plantillas de Documentos</a>
+                                <a href="#" class="list-group-item" data-parent="#menu5">Campos de Documentos</a>-->
+                            </div>
+                            <a href="#menu7" class="list-group-item d-inline-block collapsed" data-toggle="collapse" aria-expanded="false"><i class="fas fa-list-ul"></i> <span class="d-none d-md-inline">Pagos </span></a>
+                            <div class="collapse" id="menu7" data-parent="#sidebar">
+                                <a href="listarPagos.xhtml" class="list-group-item" data-parent="#menu7">Lista de Pagos</a>
+                            </div>
+                        </c:if>
+
+                    </div>
+                </div>
+                <main class="col-md-10 float-left col px-5 pl-md-2 pt-2 main" style="overflow:scroll;max-height: 750px">
+                    <div style="min-height: 30px">
+                        <c:if test="#{!empty controlAutorizacion.socio}">
+                            <h:form>
+                                <h:commandLink action="#{controlAutorizacion.logoutAdmin()}" class="btn btn-secondary float-right"><i class="fas fa-sign-out-alt"></i> Salir </h:commandLink>
+                            </h:form>
+                            <h:form>
+                                    <h:commandLink action="index.xhtml" class="btn btn-primary float-right" style="margin-right: 10px;"><i class="fab fa-whmcs"></i> <strong>Volver a Web</strong></h:commandLink>
+                            </h:form>
+                            <!--<a href="#" data-target="#sidebar" data-toggle="collapse" class="btn btn-secondary float-right" id="btn_comprimir"><i class="fas fa-compress"></i></a> -->
+                        </c:if>
+                    </div>
+                    <hr></hr>
+                    <div class="page-header">
+                        <h2><ui:insert name="titulo_modulo">Inicio</ui:insert></h2>
+                    </div>
+                    <hr></hr>
+                    <div class="row">
+                        <div class="col-md">
+                            <ui:insert name="contenido">
+                                Bienvenido
+                            </ui:insert>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <script src="resources/js/jquery-3.3.1.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+    </h:body>
+</html>
+

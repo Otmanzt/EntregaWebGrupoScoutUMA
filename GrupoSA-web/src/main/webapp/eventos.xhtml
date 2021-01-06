@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/mainLayout.xhtml">
+        <ui:define name="title">
+            Eventos
+        </ui:define>
+        <ui:define name="content">
+            
+                <!-- contenido de la página-->
+                <h1 class="titulo_evento"><h:outputText value="#{seccionesBB.seccion.nombre}" style=" text-transform: capitalize;"></h:outputText></h1>
+                <div class="row" style="margin-bottom: 20px;">
+
+                <h:panelGroup layout="block" class="col-md-12" >
+                    <div class="panel_seccion" style="background-image: url('resources/fondos/#{seccionesBB.seccion.nombre.substring(0,1).toLowerCase().concat(seccionesBB.seccion.nombre.substring(1))}.png')"></div>
+                    <div >    
+                        <p class="desc_seccion"><i class="fas fa-angle-left indicador" style="margin-right: 10px"></i> <h:outputText value="#{seccionesBB.seccion.descripcion}" /> <i class="fas fa-angle-right indicador" style="margin-left:3px"></i></p>
+                    </div>
+                </h:panelGroup>
+                    <c:forEach  items="#{seccionesBB.lista}" var="evento">
+                        <h:form id="evento_#{evento.id_evento}" class="offset-md-2 col-md-8 caja_comentario">
+                        
+                            <h:outputText value="#{evento.nombre}" style="font-weight:bold;"></h:outputText>
+                                <h:commandLink action="#{eventoEduBB.mostrarEvento(evento.id_evento)}" class="btn btn-danger float-right"><i class="fas fa-eye" style="margin-right: 10px;"></i> Ver Evento</h:commandLink>
+                            
+                            <h:panelGroup class="col-md-12" layout="block">
+                                <h:outputText value="#{evento.descripcion}"></h:outputText>
+                            </h:panelGroup>
+                            <hr ></hr>                          
+                        
+                        </h:form>
+                    </c:forEach>
+                </div>
+
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

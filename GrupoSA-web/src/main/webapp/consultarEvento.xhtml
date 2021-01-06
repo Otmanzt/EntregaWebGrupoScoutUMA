@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Consultar evento
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Consultar evento
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form id="formCrearEvento">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="inputIdEvento">Identificador*</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.id_evento}" class="form-control" id="inputIdEvento"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="inputNombre">Nombre *</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.nombre}" class="form-control" id="inputNombre"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputDescripción">Descripción *</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.descripcion}" class="form-control" id="inputDescripcion"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputLocalizacion">Localización *</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.localizacion}" class="form-control" id="inputLocalizacion"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputPrecio">Precio *</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.precio}" class="form-control" id="inputPrecio"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputFecha">Fecha de Evento *</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.fecha}" class="form-control" id="inputFecha"><f:convertDateTime pattern="dd-MM-yyyy"/></h:outputText>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="outputImagen">Imagen</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.imagen}" class="form-control" id="outputImagen"><f:convertDateTime pattern="dd-MM-yyyy"/></h:outputText>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputIdSeccion">Seccion *</h:outputLabel>
+                        <h:outputText value="#{eventosBB.evento.seccion.id_seccion}" class="form-control" id="inputIdSeccion"/>
+                    </div>
+                </div>
+                <h:button outcome="listarEventos.xhtml" class="btn btn-primary" value="Volver"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

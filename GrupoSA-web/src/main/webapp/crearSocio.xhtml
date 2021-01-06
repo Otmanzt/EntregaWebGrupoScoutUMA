@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Crear socio
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Crear socio
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form id="formCrearSocio">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputNombre">Nombre *</h:outputLabel>
+                        <h:inputText a:type="text" value="#{sociosBB.socio.nombre}" class="form-control" id="inputNombre" a:required="true" a:placeholder="Nombre"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputApellidos">Apellidos *</h:outputLabel>
+                        <h:inputText a:type="text" value="#{sociosBB.socio.apellidos}" class="form-control" id="inputApellidos" a:required="true" a:placeholder="Apellidos"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputDNI">DNI</h:outputLabel>
+                        <h:inputText a:type="text" value="#{sociosBB.socio.dni}" class="form-control" id="inputDNI" a:placeholder="DNI"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputEmail">Email *</h:outputLabel>
+                        <h:inputText a:type="text" value="#{sociosBB.socio.email}" class="form-control" id="inputEmail" a:required="true" a:placeholder="Email"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputSexo">Sexo *</h:outputLabel>
+                        <h:selectOneMenu id="inputSexo" value="#{sociosBB.socio.sexo}" required="true" requiredMessage="*Atributo obligatorio*" class="form-control">
+                            <f:selectItem itemLabel="Hombre" itemValue="Hombre"/>
+                            <f:selectItem itemLabel="Mujer" itemValue="Mujer"/>
+                            <f:selectItem itemLabel="Elegir" noSelectionOption="true"/>
+                        </h:selectOneMenu>
+                        <h:message for="inputSexo" style="color: red"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputFechaNacimiento">Fecha de Nacimiento *</h:outputLabel>
+                        <h:inputText a:type="date" value="#{sociosBB.socio.fecha_nacimiento}" class="form-control" id="inputFechaNacimiento" a:required="true" a:placeholder="DD/MM/AAAA"><f:convertDateTime pattern="yyyy-MM-dd"/></h:inputText>
+                    </div>
+                </div>
+                <div class="form-group">
+                        <h:outputLabel for="inputDireccion">Dirección * (Ciudad, CP)</h:outputLabel>
+                        <h:inputText a:type="text" value="#{sociosBB.socio.direccion}" class="form-control" id="inputDireccion" a:required="true" a:placeholder="Calle de la Amargura, N27,3ºF. Málaga, 23456"/>
+                    </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputTlfn">Teléfono *</h:outputLabel>
+                        <h:inputText a:type="number" maxlength="12" value="#{sociosBB.socio.telefono}" class="form-control" id="inputTlfn" a:required="true" a:placeholder="952343434"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputTlfnMovil">Teléfono Móvil *</h:outputLabel>
+                        <h:inputText a:type="number" maxlength="12" value="#{sociosBB.socio.telefono_movil}" class="form-control" id="inputTlfnMovil" a:required="true" a:placeholder="679123123"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputPerfil">Perfil *</h:outputLabel>
+                        <h:selectOneMenu id="inputPerfil" value="#{sociosBB.socio.perfil}" required="true" requiredMessage="*Atributo obligatorio*" class="form-control">
+                            <f:selectItem itemLabel="Administrador" itemValue="ROOT"/>
+                            <f:selectItem itemLabel="Scouter" itemValue="SCOUT"/>
+                            <f:selectItem itemLabel="Educando" itemValue="EDUCANDO"/>
+                            <f:selectItem itemLabel="Elegir" noSelectionOption="true"/>
+                        </h:selectOneMenu>
+                        <h:message for="inputPerfil" style="color: red"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputGrupo">Grupo*</h:outputLabel>
+                        <h:selectOneMenu id="inputGrupo" value="#{sociosBB.socio.grupo}" class="form-control" required="true">
+                            <f:selectItem itemLabel="Castores" itemValue="Castores"/>
+                            <f:selectItem itemLabel="Manada" itemValue="Manada"/>
+                            <f:selectItem itemLabel="Tropa" itemValue="Tropa"/>
+                            <f:selectItem itemLabel="Unidad" itemValue="Unidad"/>
+                            <f:selectItem itemLabel="Clan" itemValue="Clan"/>
+                            <f:selectItem itemLabel="Elegir" noSelectionOption="true" />
+                        </h:selectOneMenu>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputCargo">Cargo</h:outputLabel>
+                        <h:inputText a:type="text" value="#{sociosBB.socio.cargo}" class="form-control" id="inputCargo"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputAmbito">Ámbito</h:outputLabel>
+                        <h:selectOneMenu id="inputAmbito" value="#{sociosBB.socio.ambito}" class="form-control">
+                            <f:selectItem itemLabel="Federal" itemValue="Federal"/>
+                            <f:selectItem itemLabel="Asociativo" itemValue="Asociativo"/>
+                            <f:selectItem itemLabel="Provincial" itemValue="Provincial"/>
+                            <f:selectItem itemLabel="Grupo" itemValue="Grupo"/>
+                            <f:selectItem itemLabel="Elegir"/>
+                        </h:selectOneMenu>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputFechaFirma">Fecha de Firma</h:outputLabel>
+                        <h:inputText a:type="date" value="#{sociosBB.socio.fecha_firma}" class="form-control" id="inputFechaFirma"><f:convertDateTime pattern="yyyy-MM-dd"/></h:inputText>
+                    </div>
+                </div>
+                &nbsp;&nbsp;
+                <h:commandButton action="#{sociosBB.createSocio()}" class="btn btn-primary" value="Crear"/>
+                &nbsp;&nbsp;
+                <h:button outcome="sociosLista.xhtml" class="btn btn-primary" value="Volver"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

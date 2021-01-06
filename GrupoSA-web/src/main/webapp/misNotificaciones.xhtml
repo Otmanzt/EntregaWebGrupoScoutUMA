@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="templates/mainLayout.xhtml">
+        <ui:define name="title">
+            Notificaciones
+        </ui:define>
+        <ui:define name="content">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="list-group-flush lista_lateral">
+                        <a id="lateraldatosUsuario" href="datosUsuario.xhtml" class="list-group-item list-group-item-action lateraldatosUsuario">Mis Datos</a>
+                        <a id="lateralmisDocumentos" href="misDocumentos.xhtml" class="list-group-item list-group-item-action lateralmisDocumentos">Mis Documentos</a>
+                        <h:form a:action="misNotificaciones.xhtml" id="formNotificacion">
+                            <h:commandLink id="lateralmisNotificaciones" action="#{notificacionesBB.irNotif(controlAutorizacion.socio.id_Usuario)}" class="list-group-item list-group-item-action lateralmisNotificaciones active">Notificaciones</h:commandLink>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <h1>Notificaciones Nuevas</h1>
+                    <c:if test="#{notificacionesBB.noLeidas >0}">
+                        <c:forEach items="#{notificacionesBB.notifs_evento}" var="item">
+                            <c:if test="#{item.estado == 'False'}">
+                                <div class="offset-md-2 col-md-9 caja_comentario">
+                                    <h:panelGroup layout="block" class="col-md-12" style="padding-left: 0px">
+                                        <i class="fas fa-calendar-alt" style="margin-right: 5px"></i> 
+                                        <h:outputText value="#{item.evento.nombre}" style="font-weight: bold" class="noti_nombre"></h:outputText>
+                                        <h:form class="float-right" style="min-height: 10px; display: inline-block">
+                                            <h:commandLink action="#{notificacionesBB.marcarLeidoEvento(item)}"><i class="far fa-eye-slash"></i></h:commandLink>
+                                            <h:commandLink action="#{notificacionesBB.borrarNotiEvento(item)}" style="margin-left: 10px;"><i class="far fa-trash-alt"></i></h:commandLink>
+                                        </h:form>
+                                    </h:panelGroup>
+
+
+                                    <h:outputText value="#{item.evento.descripcion}"></h:outputText><br></br>
+                                    <hr></hr>
+                                    <div class="cab_comentarios"> 
+                                        <strong>Fecha del evento: <h:outputText value="#{item.evento.fecha}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br>
+                                        <strong>Fecha de notificacion: <h:outputText value="#{item.fechaNotificacion}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br> 
+                                    </div>
+                                </div>
+
+                            </c:if>
+                        </c:forEach>
+                    
+                        <c:forEach items="#{notificacionesBB.notifs_doc}" var="item">
+                        <c:if test="#{item.estado == 'False'}">
+                            <div class="offset-md-2 col-md-9 caja_comentario">
+                                <h:panelGroup layout="block" class="col-md-12" style="padding-left: 0px">
+                                    <i class="fas fa-file-alt" style="margin-right: 5px"></i> 
+                                    <h:outputText value="#{item.documento.nombre}" style="font-weight: bold" class="noti_nombre"></h:outputText>
+                                    <h:form class="float-right" style="min-height: 10px; display: inline-block">
+                                        <h:commandLink action="#{notificacionesBB.marcarLeidoDoc(item)}"><i class="far fa-eye-slash"></i></h:commandLink>
+                                        <h:commandLink action="#{notificacionesBB.borrarNotiDoc(item)}" style="margin-left: 10px;"><i class="far fa-trash-alt"></i></h:commandLink>
+                                    </h:form>
+                                </h:panelGroup>
+                                <h:outputText value="#{item.documento.enlace}"></h:outputText><br></br>
+                                <hr></hr>
+                                <div class="cab_comentarios"> 
+                                    <strong>Fecha del documento: <h:outputText value="#{item.documento.fecha}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br>
+                                    <strong>Fecha de notificacion: <h:outputText value="#{item.fechaNotificacion}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br> 
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                    </c:if>
+                    <c:if test="#{notificacionesBB.noLeidas == 0}">
+                        <h4 class="alert_notif">No tienes notificaciones nuevas</h4>
+                    </c:if>
+                    <h1>Notificaciones Leidas</h1>
+                    <c:if test="#{!empty notificacionesBB.notifs_evento || !empty notificacionesBB.notifs_doc}">
+                        <c:forEach items="#{notificacionesBB.notifs_evento}" var="item">
+                        <c:if test="#{item.estado == 'True'}">
+                            <div class="offset-md-2 col-md-9 caja_comentario">
+                                <h:panelGroup layout="block" class="col-md-12" style="padding-left: 0px">
+                                    <i class="fas fa-calendar-alt" style="margin-right: 5px"></i> 
+                                    <h:outputText value="#{item.evento.nombre}" style="font-weight: bold" class="noti_nombre"></h:outputText>
+                                    <h:form class="float-right" style="min-height: 10px; display: inline-block">
+                                        <h:commandLink action="#{notificacionesBB.borrarNotiEvento(item)}" style="margin-left: 10px;"><i class="far fa-trash-alt"></i></h:commandLink>
+                                    </h:form>
+                                </h:panelGroup>
+                                <h:outputText value="#{item.evento.descripcion}"></h:outputText><br></br>
+                                <hr></hr>
+
+                                <div class="cab_comentarios"> 
+                                    <strong>Fecha del evento: <h:outputText value="#{item.evento.fecha}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br>
+                                    <strong>Fecha de notificacion: <h:outputText value="#{item.fechaNotificacion}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br> 
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+
+                        <c:forEach items="#{notificacionesBB.notifs_doc}" var="item">
+                        <c:if test="#{item.estado == 'True'}">
+                            <div class="offset-md-2 col-md-9 caja_comentario">
+                                <h:panelGroup layout="block" class="col-md-12" style="padding-left: 0px">
+                                    <i class="fas fa-file-alt" style="margin-right: 5px"></i> 
+                                    <h:outputText value="#{item.documento.nombre}" style="font-weight: bold" class="noti_nombre"></h:outputText>
+                                    <h:form class="float-right" style="min-height: 10px; display: inline-block">
+                                        <h:commandLink action="#{notificacionesBB.borrarNotiDoc(item)}" style="margin-left: 10px;"><i class="far fa-trash-alt"></i></h:commandLink>
+                                    </h:form>
+                                </h:panelGroup>
+                                <h:outputText value="#{item.documento.enlace}"></h:outputText><br></br>
+                                <hr></hr>
+                                <div class="cab_comentarios"> 
+                                    <strong>Fecha del documento: <h:outputText value="#{item.documento.fecha}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br>
+                                    <strong>Fecha de notificacion: <h:outputText value="#{item.fechaNotificacion}"><f:convertDateTime pattern="dd-MM-yyyy, hh:mm:ss"/></h:outputText></strong><br></br> 
+                                </div>
+                            </div>
+                        </c:if>
+                    </c:forEach>
+                </c:if>
+                    <c:if test="#{empty notificacionesBB.notifs_evento and empty notificacionesBB.notifs_doc}">
+                        <h4 class="alert_notif">¡Vaya!, no tienes ninguna notificación.</h4>
+                    </c:if>
+                </div>
+            </div>
+        </ui:define>
+
+    </ui:composition>
+
+</html>

@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Consultar sección
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Consultar sección
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form id="formCrearSeccion">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="inputIdEvento">Identificador*</h:outputLabel>
+                        <h:outputText value="#{seccionesAdminBB.seccion.id_seccion}" class="form-control" id="inputIdEvento"/>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="inputNombre">Nombre *</h:outputLabel>
+                        <h:outputText value="#{seccionesAdminBB.seccion.nombre}" class="form-control" id="inputNombre"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputEdadMax">Edad máxima *</h:outputLabel>
+                        <h:outputText value="#{seccionesAdminBB.seccion.edad_max}" class="form-control" id="inputEdadMax"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputEdadMin">Edad Mínima *</h:outputLabel>
+                        <h:outputText value="#{seccionesAdminBB.seccion.edad_min}" class="form-control" id="inputEdadMin"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputDescripcion">Descripción *</h:outputLabel>
+                        <h:outputText value="#{seccionesAdminBB.seccion.descripcion}" class="form-control" id="inputDescripcion"/>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="socioLista">Socios</h:outputLabel>
+                        <h:dataTable id="socioLista" value="#{seccionesAdminBB.seccion.getSocios()}" var="socio" class="table">                
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Identificador"/>
+                                </f:facet>
+                                <h:outputText value="#{socio.id_Socio}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Socio: Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{socio.nombre}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Socio: Apellidos"/>
+                                </f:facet>
+                                <h:outputText value="#{socio.apellidos}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <h:outputLabel for="eventoLista">Eventos</h:outputLabel>
+                        <h:dataTable id="eventoLista" value="#{seccionesAdminBB.seccion.getEventos()}" var="sec" class="table">                
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Identificador"/>
+                                </f:facet>
+                                <h:outputText value="#{sec.id_evento}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Socio: Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{sec.nombre}"/>
+                            </h:column>
+                        </h:dataTable>
+                    </div>
+                    
+                </div>
+                <h:button outcome="listarSecciones.xhtml" class="btn btn-primary" value="Volver"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

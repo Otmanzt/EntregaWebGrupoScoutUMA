@@ -1,0 +1,122 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="templates/mainLayout.xhtml">
+        <ui:define name="title">
+            Eventos
+        </ui:define>
+        <ui:define name="content">
+            <h:messages></h:messages>
+            <!-- contenido de la página-->
+            <div class="row">
+                <h:panelGroup layout="block">
+                    <h1 class="titulo_evento"><h:outputText value="#{eventoEduBB.evt.getNombre()}" /></h1>
+                </h:panelGroup>
+                <div class="row" style="margin-bottom: 20px;">
+                    <img src="resources/images/pesca.jpg" class="col-md-6 img-fluid img-redonda"></img>
+                    <h:panelGroup layout="block" class="col-md-6">
+                        <p class="desc_evento"><i class="fas fa-angle-left indicador" style="margin-right: 10px"></i> <h:outputText value="#{eventoEduBB.evt.getDescripcion()}" /> <i class="fas fa-angle-right indicador" style="margin-left:3px"></i></p>
+                        <p class="desc_evento"><i class="far fa-calendar"></i> Fecha del evento: <strong><h:outputText value="#{eventoEduBB.evt.getFecha()}"><f:convertDateTime pattern="yyyy-MM-dd"/></h:outputText> </strong></p>
+                    </h:panelGroup>
+                </div>
+
+                <div class="col-md-12" style="margin-bottom: 20px;">
+                    <h1 class="titulo_evento">¿Dónde es el evento?</h1>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d51283.61911002793!2d-4.648360612920107!3d36.548658658241294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd72e23e102ffa23%3A0x2058dc519b1962f4!2s29640+Fuengirola%2C+M%C3%A1laga!5e0!3m2!1ses!2ses!4v1525542515562" width="600" height="450" frameborder="0" style="border:0;margin:0 auto; width: 100%" allowfullscreen="true"></iframe>
+                </div>
+                <div class="col-md-12"  style="margin-bottom: 20px;">
+                    <h1 class="titulo_evento">¿Quieres venir? ¡Inscríbete!</h1>
+                    <c:if test="#{!empty controlAutorizacion.socio}">
+                        <c:if test="#{!eventoEduBB.socioInscrito(controlAutorizacion.socio.id_Usuario)}">
+                            <h:form>
+                                <h:commandButton action="#{eventoEduBB.inscribirseEvento(controlAutorizacion.socio.id_Usuario)}" value="Inscribirme" class="btn btn-inscribirse"></h:commandButton>
+                            </h:form>
+                        </c:if>
+                        <c:if test="#{eventoEduBB.socioInscrito(controlAutorizacion.socio.id_Usuario)}">
+                            <div class="offset-md-2 col-md-8 text-center">
+                                <h4 class="btn btn-apuntado" >¡Ya estás apuntado!</h4>
+                            </div>
+                        </c:if>
+                    </c:if>
+                    <c:if test="#{empty controlAutorizacion.socio}">
+                        <div class="offset-md-2 col-md-8 text-center">
+                            <h4>¡Inicia sesión para apuntarte!</h4>
+                        </div>
+                    </c:if>
+                </div>
+                <div class="col-md-12">
+                    <h1 class="titulo_evento">Comentarios</h1>
+
+                    <c:forEach  items="#{eventoEduBB.listComen}" var="com">
+                        <div class="offset-md-2 col-md-8 caja_comentario">
+                            <h:outputText value="#{com.texto}" id="idComentario#{com.id_comentario}" ></h:outputText>
+
+                            <c:if test="#{!empty controlAutorizacion.socio and com.socio.id_Socio == controlAutorizacion.socio.id_Socio || controlAutorizacion.socio.perfil == 'ROOT'}">
+                                <h:form id="formEditCom#{com.id_comentario}">
+                                    <h:inputTextarea value="#{com.texto}" class="textAreaCom d-none" id="idComentarioTexto#{com.id_comentario}"></h:inputTextarea>
+                                    <h:commandLink action="#{comentariosBB.editarCom(com)}" class="btn btn-primary btn_comentar d-none" id="guardarComentario#{com.getId_comentario()}">Guardar <i class="fas fa-comment" style="margin-left: 5px"></i></h:commandLink>
+
+
+                                    <hr ></hr>
+
+                                    <div class="cab_comentarios"> <i class="far fa-user-circle" style="margin-right: 5px"></i> Escrito por 
+                                        <c:if test="#{empty com.socio.nombre}">
+                                            <strong><h:outputText value="#{com.socio.email}"></h:outputText></strong> 
+                                        </c:if>
+                                        <c:if test="#{!empty com.socio.nombre}">
+                                            <strong><h:outputText value="#{com.socio.nombre}"></h:outputText> <h:outputText value="#{com.socio.apellidos}" style="margin-left:5px;"></h:outputText></strong> 
+                                        </c:if>
+                                        el dia 
+                                        <strong><h:outputText value="#{com.fecha}"><f:convertDateTime pattern="yyyy-MM-dd"/></h:outputText></strong>
+                                        <a href="#" class="btn_editarCom" id="editarCom#{com.id_comentario}"><i style="margin-left:10px" class="fas fa-edit"></i></a>
+                                        <h:commandLink action="#{comentariosBB.borrarCom(com)}"><i style="margin-left:10px" class="fas fa-trash"></i></h:commandLink>
+                                    </div>
+                                </h:form>
+                            </c:if>
+                            <c:if test="#{!empty controlAutorizacion.socio.id_Socio and com.socio.id_Socio != controlAutorizacion.socio.id_Socio and controlAutorizacion.socio.perfil != 'ROOT'|| empty controlAutorizacion.socio }">
+                                <hr ></hr>
+                                <div class="cab_comentarios"> 
+                                    <i class="far fa-user-circle" style="margin-right: 5px"></i> Escrito por 
+                                    <c:if test="#{empty com.socio.nombre}">
+                                        <strong><h:outputText value="#{com.socio.email}"></h:outputText></strong> 
+                                    </c:if>
+                                    <c:if test="#{!empty com.socio.nombre}">
+                                        <strong><h:outputText value="#{com.socio.nombre}"></h:outputText> <h:outputText value="#{com.socio.apellidos}" style="margin-left:5px;"></h:outputText></strong> 
+                                    </c:if>
+                                    el dia 
+                                    <strong><h:outputText value="#{com.fecha}"><f:convertDateTime pattern="yyyy-MM-dd"/></h:outputText></strong> 
+                                </div>
+
+                            </c:if>
+
+
+                        </div>
+                    </c:forEach>
+                    <c:if test="#{!empty controlAutorizacion.socio}">
+                        <div class="offset-md-2 col-md-8">
+                            <h:form>
+                                <h:inputTextarea value="#{comentariosBB.textoComentario}" class="textAreaCom" ></h:inputTextarea>
+                                <h:commandLink action="#{comentariosBB.addComentario(controlAutorizacion.socio,comentariosBB.textoComentario , eventoEduBB.evt)}" class="btn btn-primary btn_comentar">Comentar <i class="fas fa-comment" style="margin-left: 5px"></i></h:commandLink>
+                            </h:form>
+                        </div>
+                    </c:if>
+                    <c:if test="#{empty controlAutorizacion.socio}">
+                        <div class="offset-md-2 col-md-8 text-center">
+                            <h4>Inicia sesión para comentar</h4>
+                        </div>
+                    </c:if>
+
+                </div>
+            </div>
+            <h:form>
+            </h:form>
+        </ui:define>
+
+    </ui:composition>
+
+</html>
+

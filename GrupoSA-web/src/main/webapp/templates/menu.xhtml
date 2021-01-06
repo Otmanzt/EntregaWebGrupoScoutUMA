@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition>
+        <nav id="menu_principal" class="navbar navbar-expand-lg navbar-light bg-scout">
+            <a class="navbar-brand enlace offset-md-2" href="index.xhtml"><img src="resources/icons/icono.png" width="35px"></img> Santo Angel</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse col-md-7" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownSeccion" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-child" style="margin-right: 10px"></i>Secciones <span class="sr-only">(current)</span></a>
+
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownSeccion">
+                            <h:form id="castores">
+                                <h:commandLink action ="#{seccionesBB.cargarLista(1)}" class="dropdown-item">Castores</h:commandLink>
+                            </h:form>
+                            <h:form>
+                                <h:commandLink action ="#{seccionesBB.cargarLista(2)}" class="dropdown-item">Manada</h:commandLink>
+                                <h:commandLink action ="#{seccionesBB.cargarLista(3)}" class="dropdown-item">Tropa</h:commandLink>
+                                <h:commandLink action ="#{seccionesBB.cargarLista(4)}" class="dropdown-item">Unidad</h:commandLink>
+                                <h:commandLink action ="#{seccionesBB.cargarLista(5)}" class="dropdown-item">Clan</h:commandLink>
+                            </h:form>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-people-carry" style="margin-right: 10px"></i> Nuestro Grupo
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="ubicacion.xhtml">Ubicación</a>
+                            <a class="dropdown-item" href="asde.xhtml">ASDE</a>
+                            <a class="dropdown-item" href="colegio.xhtml">Colegio</a>
+                            <a class="dropdown-item" href="informacion.xhtml">Información</a>
+                        </div>
+                    </li>
+
+                </ul>
+                <c:if test="#{empty controlAutorizacion.socio}">
+                    <ul class="navbar-nav text-center">
+                        <li class="nav-item">
+                            <form>
+                                <button type="button" class="btn bg-scout btn_menus" data-toggle="modal" data-target="#exampleModalCenter"> <i class="fas fa-user"></i> Login</button>
+                            </form>
+                        </li>
+                    </ul>
+                </c:if>
+                <c:if test="#{!empty controlAutorizacion.socio}">
+                    <ul class="navbar-nav text-center">
+                        <h:form>
+                            <c:if test="#{controlAutorizacion.socio.perfil == 'ROOT' || controlAutorizacion.socio.perfil == 'SCOUT'}">
+                                <li class="nav-item">
+                                    <h:commandLink class="nav-link" action="indexAdmin.xhtml"><i class="fab fa-whmcs"></i> <strong>Administrar</strong></h:commandLink>
+                                </li>
+                            </c:if>
+                        </h:form>
+                        <h:form a:action="datosUsuario.xhtml">
+                            <li class="nav-item">
+                                <h:commandLink  class="nav-link" action="datosUsuario.xhtml" style="font-weight: bold">                    
+                                    <c:if test="#{controlAutorizacion.socio.perfil == 'ROOT' || controlAutorizacion.socio.perfil == 'SCOUT'}">
+                                        <img style="background-color: white" class="icono_scout" src="resources/icons/admin.png"/>
+                                    </c:if>
+                                    <c:if test="#{controlAutorizacion.socio.perfil != 'ROOT' and controlAutorizacion.socio.perfil != 'SCOUT'}">
+                                        <img class="icono_scout" src="./resources/icons/#{controlAutorizacion.socio.seccion.nombre.substring(0,1).toLowerCase().concat(controlAutorizacion.socio.seccion.nombre.substring(1))}.png"/>
+                                    </c:if>
+                                    <c:if test="#{!empty controlAutorizacion.socio.getNombre()}">
+                                        <h:outputText value="#{controlAutorizacion.socio.getNombre()}" style="margin-right: 3px;"></h:outputText> 
+                                        <c:if test="#{!empty controlAutorizacion.socio.getApellidos()}">
+                                            <h:outputText value="#{controlAutorizacion.socio.getApellidos()}"></h:outputText>
+                                        </c:if>
+                                    </c:if>
+                                    <c:if test="#{empty controlAutorizacion.socio.getNombre()}">
+                                        <h:outputText value="#{controlAutorizacion.socio.getEmail()}"></h:outputText>
+                                    </c:if>
+                                </h:commandLink>
+                            </li>
+                        </h:form>
+
+                       <li class="nav-item" style="padding-top: 22px;">
+                            <h:form>
+                                <h:commandLink action="#{notificacionesBB.irNotif(controlAutorizacion.socio.id_Usuario)}" class="icono_noti">
+                                
+                                <i class="fas fa-bell"></i>
+                                <c:if test="#{notificacionesBB.noLeidas >0}">
+                                    <h:outputText class="bolita_not" value="#{notificacionesBB.noLeidas}"></h:outputText>
+                                </c:if>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li class="nav-item" style="padding-top: 22px;">
+                            <h:form>
+                                <h:commandLink action="#{controlAutorizacion.logout()}" class="icono_salir"><i class="fas fa-sign-out-alt"></i></h:commandLink>
+                            </h:form>
+                        </li>
+                        
+                    </ul>
+                </c:if>
+            </div>
+
+        </nav>
+    </ui:composition>
+</html>
+

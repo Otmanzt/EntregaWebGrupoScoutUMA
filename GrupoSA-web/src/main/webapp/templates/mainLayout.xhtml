@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet library="css" name="bootstrap.css"  />
+        <h:outputStylesheet library="css" name="scout.css"  />
+        <link rel="shortcut icon" href="resources/icons/icon-flordelis-transparente.png"></link>
+        <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"></link>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css" integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous"></link>
+        <title><ui:insert name="title" /></title>
+    </h:head>
+    <h:body>
+        <div id="layout" class="">		
+            <div id="header">
+                <ui:include src="menu.xhtml"/>
+            </div>
+
+            <div id="content" class="row" style="margin-right: 0px;">
+                <div class="offset-md-2 col-md-8" style="margin-top: 20px">
+                    <ui:insert name="content">
+                        <span>Página en construcción</span>
+                    </ui:insert>
+                </div>
+            </div>
+
+            <footer class="footer bg-scout">
+                <div class="container text-center">
+                    <span>Copyright ©2018. Grupo Scout 39 Santo Angel - Málaga Softbox &copy;
+                        <div style="display:inline-block;position:relative">
+                            <a class="facebook" href="https://www.facebook.com/g39santoangel/"></a>
+                        </div>
+                    </span>
+
+                </div>
+            </footer>
+        </div>
+        <ui:include src="loginUser.xhtml"/>
+        <ui:include src="subirFicheroModal.xhtml"/>
+        <script src="resources/js/jquery-3.3.1.min.js"></script>
+        <script src="resources/js/bootstrap.min.js"></script>
+        <script src="resources/js/scout.js"></script>
+    </h:body>
+</html>
+

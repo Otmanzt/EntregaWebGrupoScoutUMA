@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Crear cuota
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Crear cuota
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form id="formCrearCuota">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputNombre">Nombre *</h:outputLabel>
+                        <h:inputText a:type="text" value="#{cuotasBB.cuota.nombre}" class="form-control" id="inputNombre" a:required="true" a:placeholder="Nombre"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputImporte">Importe *</h:outputLabel>
+                        <h:inputText a:type="number" value="#{cuotasBB.cuota.importe}" class="form-control" id="inputImporte" a:required="true" a:placeholder="Importe en €"/>
+                    </div>
+                </div>
+         
+                <div class="form-group">
+                    <h:outputLabel for="inputDescripcion">Descripción *</h:outputLabel>
+                    <h:inputTextarea a:type="text" value="#{cuotasBB.cuota.descripcion}" class="form-control" id="inputDescripcion" a:required="true" a:rows="4" a:placeholder="Descripción de la cuota"/>
+                </div>
+                
+                &nbsp;&nbsp;
+                <h:commandButton action="#{cuotasBB.createCuotas()}" class="btn btn-primary" value="Crear"/>
+                &nbsp;&nbsp;
+                <h:button outcome="cuotasLista.xhtml" class="btn btn-primary" value="Volver"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

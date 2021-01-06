@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Lista de Eventos
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Lista de eventos
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form style="min-height: 55px">
+                <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                    <h:commandLink action="#{eventosBB.newEvento()}" class="btn btn-success float-right"><i class="fas fa-plus"></i> Crear</h:commandLink>
+                </c:if>
+                    
+            </h:form>
+
+            <h:dataTable id="eventoLista" value="#{eventosBB.getEventos()}" var="even" class="table">                
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Identificador"/>
+                    </f:facet>
+                    <h:outputText value="#{even.id_evento}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Nombre"/>
+                    </f:facet>
+                    <h:outputText value="#{even.nombre}"/>
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Acciones"/>
+                    </f:facet>
+                    <h:form>
+                        <c:if test="#{controlAutorizacion.socio.getPerfil() == 'SCOUT' ||controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                            <h:commandLink action="#{eventosBB.readEvento(even)}"><i class="fas fa-eye"></i></h:commandLink>
+                            &nbsp;
+                        </c:if>
+                        <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                            <h:commandLink action="#{eventosBB.modEvento(even)}"><i class="fas fa-edit"></i></h:commandLink>
+                            &nbsp;
+                            <h:commandLink action="#{eventosBB.deleteEvento(even)}"><i class="far fa-trash-alt"></i></h:commandLink>
+                        </c:if>
+                    </h:form>
+                </h:column>
+                <c:if test="#{controlAutorizacion.socio.getPerfil() == 'ROOT'}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="Descargas: Asistentes, Inscritos"/>
+                        </f:facet>
+                        <h:form>
+                            <h:commandLink  action="#{eventosBB.descargaEvento(even, 0)}"><i class="float-center fas fa-download"></i></h:commandLink>
+                            &nbsp;
+                            <h:commandLink  action="#{eventosBB.descargaEvento(even, 1)}"><i class="float-center fas fa-download"></i></h:commandLink>
+                        </h:form>
+                    </h:column>
+                </c:if>
+                
+                
+            </h:dataTable>
+        </ui:define>
+    </ui:composition>
+</html>

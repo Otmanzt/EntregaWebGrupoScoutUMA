@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <ui:composition template="templates/mainAdmin.xhtml">
+        <ui:define name="title">
+            Crear Documento
+        </ui:define>
+        <ui:define name="titulo_modulo">
+            Crear Documento
+        </ui:define>
+        <ui:define name="contenido">
+            <h:form id="formCrearDocumento">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputNombre">Nombre *</h:outputLabel>
+                        <h:inputText a:type="text" value="#{misDocs.doc.nombre}" class="form-control" id="inputNombre" a:required="true" a:placeholder="Nombre"/>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputApellidos">Tipo*</h:outputLabel>
+                        <h:inputText a:type="text" value="#{misDocs.doc.tipo}" class="form-control" id="inputApellidos" a:required="true" a:placeholder="Tipo"/>
+                    </div>
+                    
+                </div>
+                
+                        <h:message for="inputPerfil" style="color: red"/>
+                    
+                
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <h:outputLabel for="inputSocio">Socio</h:outputLabel>
+                        <h:selectOneMenu id="inputSocio" value="#{misDocs.id_usuario}" class="form-control">
+                            <c:forEach items="#{misDocs.socios}" var="socio">
+                                <f:selectItem itemLabel="#{socio.id_Usuario} #{socio.nombre} #{socio.apellidos}"  itemValue="#{socio.id_Usuario}"/>
+                            </c:forEach>
+                        </h:selectOneMenu>
+                    </div>
+                    
+                </div>
+                
+                &nbsp;&nbsp;
+                <h:commandButton action="#{misDocs.insertarDoc()}" class="btn btn-primary" value="Crear"/>
+                &nbsp;&nbsp;
+                <h:button outcome="documentosLista.xhtml" class="btn btn-primary" value="Volver"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

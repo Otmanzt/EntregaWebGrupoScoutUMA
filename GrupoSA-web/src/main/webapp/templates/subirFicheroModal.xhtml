@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <ui:composition>
+        <!-- Modal -->
+        <div class="modal fade" id="modalFichero" tabindex="-1" role="dialog" aria-labelledby="modalFichero" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <!--<div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>-->
+                    <div class="modal-body">
+                        <div class="row">
+                            <h:form class="col-md-12" id="formSubida" enctype="multipart/form-data">
+                                <div class="form-group col-md-8 offset-md-2">
+                                    <label class="etiqueta_login">Fichero a Subir</label>
+
+
+                                    <h:inputFile id="file" value="#{subirFichero.uploadedFile}"/>
+
+                                </div>
+                                <div class=" row justify-content-md-center">
+                                    <h:commandButton action="#{subirFichero.saveFile(controlAutorizacion.socio.id_Socio)}" value="Subir" class="btn btn-success "></h:commandButton>
+                                </div>
+                                <h:messages></h:messages>
+                            </h:form>
+                        </div>
+                    </div>
+                    <!--<div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </ui:composition>
+</html>
